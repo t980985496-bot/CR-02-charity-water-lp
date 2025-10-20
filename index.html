@@ -1,47 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charity Water Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Charity: Water — Lead Change That Lasts</title>
+  <style>
+    :root{
+      --yellow: #FFC907;
+      --blue: #2E9DF7;
+      --light-blue: #CBCDD1;
+      --green: #4FCB53;
+      --orange: #FF902A;
+      --red: #F5402C;
+      --dark-green: #159A48;
+      --pink: #F16061;
+      --navy: #123254;
+      --text-dark: #0f1a2a;
+      --bg-light: #FFF7E1;
+      --radius-lg: 28px;
+      --radius-xl: 42px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Avenir:wght@400;600;700&display=swap');
+    body{
+      font-family: 'Avenir', 'Proxima Nova', sans-serif;
+      margin:0;
+      padding:0;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height:1.6;
+      font-size: 18px;
+    }
+
+    *{box-sizing:border-box}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .topbar{ position: sticky; top: 0; z-index: 10; background: transparent; }
+    .topbar-inner{ position: relative; isolation:isolate; }
+
+    .nav{max-width:1250px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;position:relative;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.4rem;color:#fff}
+
+    .jerrycan-img{width:40px;height:40px;object-fit:contain;display:block;border-radius:10px;box-shadow:0 8px 14px rgba(0,0,0,.25);background:transparent}
+
+    .navlinks{display:flex;gap:30px;font-weight:600;font-size:1.1rem}
+    .navlinks a{color:#fff}
+    .navlinks a:hover{text-decoration:underline}
+
+    .header-shape-wrap{position:absolute; inset:0 auto auto 0; width:100%; height:140px; z-index:-1;}
+    .header-shape{position:absolute; inset:0; width:100%; height:100%; display:block}
+    .header-shadow{position:absolute; inset:0; width:100%; height:100%; transform: translateY(10px); opacity:.9; filter: drop-shadow(0 10px 22px rgba(0,0,0,.3));}
+
+    .hero{
+      max-width:1250px;
+      margin:0 auto;
+      display:grid;gap:36px;grid-template-columns: 320px 1fr 480px; padding:40px 24px 20px;
+      align-items:center;
+      min-height: 70vh;
+    }
+
+    .left-col{display:flex;flex-direction:column;align-items:center;gap:24px; align-self:center; position:relative;}
+
+    .droplets{position:absolute;top:-50px;display:flex;justify-content:center;width:100%;}
+    .droplet-svg{filter: drop-shadow(0 2px 4px rgba(0,0,0,.18));}
+    .droplet1{width:26px;height:36px;transform:translateY(0px);animation:fall1 2.8s infinite ease-in-out;}
+    .droplet2{width:32px;height:44px;transform:translateY(8px);animation:fall2 3s infinite ease-in-out;}
+    .droplet3{width:22px;height:32px;transform:translateY(4px);animation:fall3 2.6s infinite ease-in-out;}
+
+    @keyframes fall1{ 0%,100%{transform:translateY(0px) scale(1)} 50%{transform:translateY(10px) scale(1.05)} }
+    @keyframes fall2{ 0%,100%{transform:translateY(8px) scale(1)} 50%{transform:translateY(20px) scale(1.05)} }
+    @keyframes fall3{ 0%,100%{transform:translateY(4px) scale(1)} 50%{transform:translateY(14px) scale(1.1)} }
+
+    .cta-card{position:relative; background:#FFF7E1; padding:26px; border-radius:var(--radius-lg); border:4px solid var(--blue); margin-top:40px;}
+    .cta-card::after{
+      content:""; position:absolute; inset:0; border-radius:var(--radius-lg);
+      background: var(--navy); transform: translate(14px,14px); z-index:-1;
+    }
+    .cta-btn{display:inline-block;background:var(--yellow);color:#000;font-weight:800;padding:18px 30px;border-radius:18px;text-align:center;border:3px solid #000;box-shadow:0 6px 0 #000;transition:transform .15s ease;font-size:1.1rem}
+    .cta-btn:hover{transform:translateY(3px)}
+
+    .photo-wrap{position:relative; background:var(--blue); padding:24px; border-radius:var(--radius-xl)}
+    .photo-wrap::after{content:""; position:absolute; inset:0; border-radius:var(--radius-xl); background:var(--navy); transform: translate(18px,18px); z-index:-1}
+    .photo{border-radius:24px; object-fit:cover; aspect-ratio:4/5}
+
+    .headline-wrap{position:relative; align-self:center}
+    .headline-card{position:relative; background:var(--light-blue); padding:30px; border-radius:var(--radius-lg); border:3px solid #bfc6cf}
+    .headline-card::after{content:""; position:absolute; inset:0; border-radius:var(--radius-lg); background:var(--navy); transform: translate(18px,18px); z-index:-1}
+    .headline-card h1{margin:0 0 16px;font-size:42px;color:var(--navy)}
+    .headline-card p{margin:0;color:#2b3c53;font-size:20px}
+
+    .wave-footer {position: relative; background: var(--navy); color: #fff; text-align: center; padding: 90px 20px 60px; margin-top: 20px; overflow: hidden; font-size:1.1rem;}
+    .wave-footer::before {content: ''; position: absolute; top: -80px; left: -5%; right:-5%; height: 160px; background: var(--bg-light); border-radius: 55% / 40%;}
+    .wave-footer::after {content:''; position:absolute; top:-60px; left:-5%; right:-5%; height:160px; background: var(--navy); border-radius:55% / 40%; transform: translate(16px,16px); z-index:-1}
+    .wave-footer p{position:relative; z-index:1; font-style:italic; margin:0}
+
+    @media(max-width:1100px){.hero{grid-template-columns:260px 1fr 1fr}}
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      .headline-wrap{order:3}
+      .photo-wrap{order:1}
+      .left-col{order:2}
+      .headline-card h1{font-size:32px}
+      .header-shape-wrap{height:120px}
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section: This is the main banner at the top of the page -->
-    <section class="hero">
-        <!-- Main headline -->
-        <h1>Clean Water for Everyone</h1>
-        <!-- Subheadline -->
-        <p>Join us in bringing safe, clean water to communities in need.</p>
-    </section>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="header-shape-wrap" aria-hidden="true">
+        <svg class="header-shadow" viewBox="0 0 1440 220" preserveAspectRatio="none">
+          <path fill="#0c253f" d="M0,0 H1440 V110 C1320,160 1160,190 980,170 C780,148 640,90 480,110 C300,132 160,200 0,170 Z" />
+        </svg>
+        <svg class="header-shape" viewBox="0 0 1440 220" preserveAspectRatio="none">
+          <path fill="var(--navy)" d="M0,0 H1440 V100 C1320,150 1160,180 980,160 C780,138 640,80 480,100 C300,122 160,190 0,160 Z" />
+        </svg>
+      </div>
 
-    <!-- Story Section: This tells the story of the nonprofit -->
-    <section class="story">
-        <h2>Our Story</h2>
-        <p>
-         
-    </section>
-
-    <!-- Real-World Impact Story Section -->
-    <section class="impact-story">
-        <!-- Section headline -->
-        <h2>Real Impact: Meet Amina</h2>
-        <!-- Container for image and text -->
-        <div class="impact-content">
-            <!-- Impact image -->
-            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Amina smiling with clean water" class="impact-image">
-            <!-- Impact story text -->
-            <p>
-                Amina used to walk miles every day to collect water for her family. Thanks to your support, her village now has a clean water well. Amina can go to school and her family is healthier and happier.
-            </p>
+      <nav class="nav">
+        <div class="brand">
+          <img src="img/water-can-transparent.png" alt="Charity Water Can Logo" class="jerrycan-img" />
+          Charity: Water
         </div>
+        <div class="navlinks">
+          <a href="#mission">Mission</a>
+          <a href="#projects">Projects</a>
+          <a href="#stories">Stories</a>
+          <a href="#donate">Donate</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero">
+    <aside class="left-col">
+      <div class="droplets">
+        <svg class="droplet-svg droplet1" viewBox="0 0 24 32" aria-hidden="true">
+          <path fill="var(--blue)" d="M12 2 C 9 7, 4 13, 4 18 C 4 25, 8.5 30, 12 30 C 15.5 30, 20 25, 20 18 C 20 13, 15 7, 12 2 Z"/>
+        </svg>
+        <svg class="droplet-svg droplet2" viewBox="0 0 24 32" aria-hidden="true">
+          <path fill="var(--blue)" d="M12 2 C 9 7, 4 13, 4 18 C 4 25, 8.5 30, 12 30 C 15.5 30, 20 25, 20 18 C 20 13, 15 7, 12 2 Z"/>
+        </svg>
+        <svg class="droplet-svg droplet3" viewBox="0 0 24 32" aria-hidden="true" >
+          <path fill="var(--blue)" d="M12 2 C 9 7, 4 13, 4 18 C 4 25, 8.5 30, 12 30 C 15.5 30, 20 25, 20 18 C 20 13, 15 7, 12 2 Z"/>
+        </svg>
+      </div>
+      <div class="cta-card"><a class="cta-btn" href="#donate">Donate Now</a></div>
+    </aside>
+
+    <section class="photo-wrap">
+      <img class="photo" src="img/charity_Photography.jpg" alt="Charity photography showing clean water efforts" />
     </section>
 
-    <!-- Call-to-Action Section: This encourages visitors to take action -->
-    <section class="call-to-action">
-        <h2>Make a Difference</h2>
-        <p>Your support can help save lives. Every donation brings us closer to a world with clean water for all.</p>
-        <a href="#" class="donate-button">Donate Now</a>
+    <section class="headline-wrap">
+      <div class="headline-card">
+        <h1>Lead Change That Lasts</h1>
+        <p>Invest in clean water projects that create measurable, lasting impact around the world.</p>
+      </div>
     </section>
+  </main>
+
+  <footer class="wave-footer">
+    <p>Clean water today creates hope for tomorrow.</p>
+  </footer>
 </body>
 </html>
